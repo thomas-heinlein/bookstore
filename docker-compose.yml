@@ -16,15 +16,34 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: bookstore
-      POSTGRES_USER: bookstore_user
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: bookstore_password
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.6
+    command: start
+    environment:
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8081
+      KC_HOSTNAME_STRICT_BACKCHANNEL: false
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HEALTH_ENABLED: true
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres/postgres
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: bookstore_password
+    ports:
+      - 8081:8080
+    restart: always
+    depends_on:
+      - postgres
+
 volumes:
   postgres_data:
-
-networks:
-  postgres_network:
-    driver: bridge

@@ -30,9 +30,3 @@ dependencies {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
-
-flyway {
-	url = "jdbc:postgresql://postgres:5432/bookstore"
-	user = "bookstore_user"
-	password = "bookstore_password"
-}
