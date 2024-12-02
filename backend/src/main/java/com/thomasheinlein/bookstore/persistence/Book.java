@@ -5,15 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "books")
 @Getter
 @Setter
-public class Customer {
+public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String firstName;
-    private String lastName;
+    private Long id;
+    private String isbn;
+    private String name;
 
 }

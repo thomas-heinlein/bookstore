@@ -1,6 +1,6 @@
-CREATE TABLE customers
+CREATE TABLE books
 (
-    id         INTEGER PRIMARY KEY,
-    first_name VARCHAR(255) NOT NULL,
-    last_name  VARCHAR(255) NOT NULL
+    id   INTEGER PRIMARY KEY,
+    isbn VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL
 );
