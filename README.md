@@ -1,7 +1,7 @@
 ## How to run
 
 ```
-./gradlew :backend:bootJar
-
-docker-compose up --build
+docker-compose up --build -d
+./initialize-kc.sh
+./gradlew :backend:boorRun
 ```
