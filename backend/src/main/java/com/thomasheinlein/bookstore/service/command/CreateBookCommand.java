@@ -1,4 +1,4 @@
-package com.thomasheinlein.bookstore.service;
+package com.thomasheinlein.bookstore.service.command;
 
 import lombok.Value;
 
