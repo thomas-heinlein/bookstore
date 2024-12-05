@@ -10,22 +10,23 @@ import lombok.Setter;
 @Table(name = "books")
 @Getter
 @Setter
-public class Book {
+public class JpaBook {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_id")
+    @SequenceGenerator(name = "book_id", sequenceName = "books_seq", allocationSize = 1)
     private Long id;
     private String isbn;
     private String name;
 
-    public static Book fromCommand(CreateBookCommand command) {
-        Book book = new Book();
+    public static JpaBook fromCommand(CreateBookCommand command) {
+        JpaBook book = new JpaBook();
         book.setIsbn(command.getIsbn());
         book.setName(command.getName());
         return book;
     }
-    public static Book fromCommand(EditBookCommand command) {
-        Book book = new Book();
+    public static JpaBook fromCommand(EditBookCommand command) {
+        JpaBook book = new JpaBook();
         book.setIsbn(command.getIsbn());
         book.setName(command.getName());
         return book;

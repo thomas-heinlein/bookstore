@@ -18,7 +18,8 @@ export const create = async <T>(path: string, objectToCreate: T, auth: AuthConte
     const response = await fetch(`http://localhost:8081/api/${path}`, {
         method: 'POST',
         headers: {
-            authorization: `Bearer ${auth.user?.id_token}`
+            authorization: `Bearer ${auth.user?.id_token}`,
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(objectToCreate)
     });
