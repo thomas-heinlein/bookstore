@@ -4,9 +4,10 @@ import {Box, Button} from "@mui/material";
 import Stack from '@mui/material/Stack';
 import {useAuth} from "react-oidc-context";
 import {create} from "../api/ApiUtils.ts";
+import {CreateBook} from "../api/CreateBook.ts";
 
 
-export const BookCreation: FC = () => {
+const BookCreation: FC = () => {
 
     const auth = useAuth();
 
@@ -24,7 +25,7 @@ export const BookCreation: FC = () => {
                     <TextFieldElement name="name" label="Name"/>
                     <TextFieldElement name="isbn" label="ISBN"/>
                     <Button type="submit" color="primary">
-                        Erstellen
+                        Create
                     </Button>
                 </Stack>
 
@@ -32,3 +33,5 @@ export const BookCreation: FC = () => {
         </Box>
     </>);
 }
+
+export default BookCreation;

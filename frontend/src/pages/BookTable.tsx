@@ -2,7 +2,8 @@ import {useAuth} from 'react-oidc-context';
 import {useQuery} from '@tanstack/react-query';
 import {query} from "../api/ApiUtils.ts";
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
-import {Book} from '../api/Book.ts'
+import {FC} from "react";
+import {Book} from "../types/Book.ts";
 
 const columns: GridColDef<Book[number]>[] = [
     {
@@ -19,7 +20,7 @@ const columns: GridColDef<Book[number]>[] = [
         headerName: 'ISBN'
     }
 ];
-export const BookTable: React.FC = () => {
+const BookTable: FC = () => {
 
     const auth = useAuth();
 
@@ -29,15 +30,20 @@ export const BookTable: React.FC = () => {
         retry: true,
     });
 
-    return (error ? (
-        error.message
-    ) : isPending ? (
-        <>Loading...</>
-    ) : (
+    if (error) {
+        return error.message;
+    }
+    if (isPending) {
+        return <>Loading...</>;
+    }
+
+    return (
         <DataGrid
             columns={columns}
             rows={data}
             disableRowSelectionOnClick
-            />
-    ));
+        />
+    );
 }
+
+export default BookTable;
