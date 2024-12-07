@@ -1,4 +1,4 @@
-import {AppBar, Button, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, Toolbar, Typography, useTheme} from "@mui/material";
 import {Link} from "react-router-dom";
 import * as React from "react";
 import {FC, ReactElement} from "react";
@@ -31,7 +31,7 @@ const pages: Page[] = [
 const NavBar: FC = () => {
 
     const auth = useAuth();
-
+    const theme = useTheme();
     const getUsername = () => {
         const fullUsername = auth.user?.profile.preferred_username ?? 'User'
         return Array.from(fullUsername)[0].toUpperCase();
@@ -107,7 +107,7 @@ const NavBar: FC = () => {
                                 {pages.map((page) => (
                                     <Link key={page.path} to={page.path} style={{textDecoration: 'none'}}>
                                         <MenuItem onClick={handleCloseNavMenu}>
-                                            <Typography sx={{textAlign: 'center', display: 'inline-flex'}}>
+                                            <Typography sx={{textAlign: 'center', display: 'inline-flex', color: theme.palette.text.primary }}>
                                                 {page.icon}
                                                 <span style={{marginLeft: 8}}>{page.displayText}</span>
                                             </Typography>

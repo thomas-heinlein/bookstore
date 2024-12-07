@@ -10,29 +10,32 @@ import {Home} from "./pages/Home.tsx";
 import BookTable from "./pages/BookTable.tsx";
 import BookCreation from "./pages/BookCreation.tsx";
 import Stack from '@mui/material/Stack';
-
+import {ThemeProvider} from '@mui/material/styles';
+import theme from './theme';
 
 function App() {
     return (
         <>
-            <QueryClientProvider client={queryClient}>
-                <AuthProvider userManager={userManager} onSigninCallback={onSigninCallback}>
-                    <SecuredPage>
-                        <BrowserRouter>
-                            <Stack spacing={5}>
-                            <NavBar/>
-                            <main className="main-content">
-                                <Routes>
-                                    <Route path="/" element={<Home/>}/>
-                                    <Route path="/books" element={<BookTable/>}/>
-                                    <Route path="/books/create" element={<BookCreation/>}/>
-                                </Routes>
-                            </main>
-                            </Stack>
-                        </BrowserRouter>
-                    </SecuredPage>
-                </AuthProvider>
-            </QueryClientProvider>
+            <ThemeProvider theme={theme}>
+                <QueryClientProvider client={queryClient}>
+                    <AuthProvider userManager={userManager} onSigninCallback={onSigninCallback}>
+                        <SecuredPage>
+                            <BrowserRouter>
+                                <Stack spacing={5}>
+                                    <NavBar/>
+                                    <main className="main-content">
+                                        <Routes>
+                                            <Route path="/" element={<Home/>}/>
+                                            <Route path="/books" element={<BookTable/>}/>
+                                            <Route path="/books/create" element={<BookCreation/>}/>
+                                        </Routes>
+                                    </main>
+                                </Stack>
+                            </BrowserRouter>
+                        </SecuredPage>
+                    </AuthProvider>
+                </QueryClientProvider>
+            </ThemeProvider>
         </>
     )
 }
