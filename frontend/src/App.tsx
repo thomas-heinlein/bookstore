@@ -9,6 +9,8 @@ import NavBar from "./components/NavBar.tsx";
 import {Home} from "./pages/Home.tsx";
 import BookTable from "./pages/BookTable.tsx";
 import BookCreation from "./pages/BookCreation.tsx";
+import Stack from '@mui/material/Stack';
+
 
 function App() {
     return (
@@ -17,14 +19,16 @@ function App() {
                 <AuthProvider userManager={userManager} onSigninCallback={onSigninCallback}>
                     <SecuredPage>
                         <BrowserRouter>
+                            <Stack spacing={5}>
                             <NavBar/>
                             <main className="main-content">
                                 <Routes>
                                     <Route path="/" element={<Home/>}/>
                                     <Route path="/books" element={<BookTable/>}/>
-                                    <Route path="/create-book" element={<BookCreation/>}/>
+                                    <Route path="/books/create" element={<BookCreation/>}/>
                                 </Routes>
                             </main>
+                            </Stack>
                         </BrowserRouter>
                     </SecuredPage>
                 </AuthProvider>
