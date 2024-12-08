@@ -10,6 +10,7 @@ public interface BookService {
     List<JpaBook> getAll();
 
     Long create(CreateBookCommand command);
-
     void edit(EditBookCommand command);
+
+    void delete(Long id);
 }

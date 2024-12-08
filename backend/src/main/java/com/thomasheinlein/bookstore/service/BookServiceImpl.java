@@ -5,6 +5,7 @@ import com.thomasheinlein.bookstore.persistence.JpaBook;
 import com.thomasheinlein.bookstore.persistence.BookRepository;
 import com.thomasheinlein.bookstore.service.command.CreateBookCommand;
 import com.thomasheinlein.bookstore.service.command.EditBookCommand;
+import com.thomasheinlein.bookstore.service.exception.BookNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,17 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public void edit(EditBookCommand command) {
+        if (!bookRepository.existsById(command.getId())) {
+            throw new BookNotFoundException(command.getId());
+        }
         bookRepository.save(JpaBook.fromCommand(command));
+    }
+
+    @Override
+    public void delete(Long id) {
+        if (!bookRepository.existsById(id)) {
+            throw new BookNotFoundException(id);
+        }
+        bookRepository.deleteById(id);
     }
 }

@@ -3,13 +3,17 @@ package com.thomasheinlein.bookstore.persistence;
 import com.thomasheinlein.bookstore.service.command.CreateBookCommand;
 import com.thomasheinlein.bookstore.service.command.EditBookCommand;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "books")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder(toBuilder = true)
+@ToString
+@EqualsAndHashCode
 public class JpaBook {
 
     @Id
@@ -27,6 +31,7 @@ public class JpaBook {
     }
     public static JpaBook fromCommand(EditBookCommand command) {
         JpaBook book = new JpaBook();
+        book.setId(command.getId());
         book.setIsbn(command.getIsbn());
         book.setName(command.getName());
         return book;
