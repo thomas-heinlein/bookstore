@@ -3,9 +3,8 @@ import {FormContainer, TextFieldElement} from "react-hook-form-mui";
 import {Box, Button} from "@mui/material";
 import Stack from '@mui/material/Stack';
 import {useAuth} from "react-oidc-context";
-import {create} from "../api/ApiUtils.ts";
-import {CreateBook} from "../api/CreateBook.ts";
-
+import {create} from "../api/ApiUtils";
+import {CreateBook} from "../api/CreateBook";
 
 const BookCreation: FC = () => {
 

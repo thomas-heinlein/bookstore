@@ -1,14 +1,13 @@
 import './App.css'
-import {onSigninCallback, queryClient, userManager} from "./config.ts";
+import {onSigninCallback, queryClient, userManager} from "./config";
 import {AuthProvider} from 'react-oidc-context';
 import {QueryClientProvider} from "@tanstack/react-query";
-import {SecuredPage} from "./SecuredPage.tsx";
-import {Router} from "@mui/icons-material";
+import {SecuredPage} from "./SecuredPage";
 import {BrowserRouter, Route, Routes} from "react-router";
-import NavBar from "./components/NavBar.tsx";
-import Home from "./pages/Home.tsx";
-import BookTable from "./pages/BookTable.tsx";
-import BookCreation from "./pages/BookCreation.tsx";
+import NavBar from "./components/NavBar";
+import Home from "./pages/Home";
+import BookTable from "./pages/BookTable";
+import BookCreation from "./pages/BookCreation";
 import Stack from '@mui/material/Stack';
 import {ThemeProvider} from '@mui/material/styles';
 import theme from './theme';

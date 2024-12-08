@@ -1,9 +1,9 @@
 import {useAuth} from 'react-oidc-context';
 import {useQuery} from '@tanstack/react-query';
-import {query} from "../api/ApiUtils.ts";
+import {query} from "../api/ApiUtils";
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
 import {FC} from "react";
-import {Book} from "../types/Book.ts";
+import {Book} from "../types/Book";
 
 const columns: GridColDef<Book>[] = [
     {
@@ -31,7 +31,7 @@ const BookTable: FC = () => {
     });
 
     if (error) {
-        return error.message;
+        return <>error.message</>;
     }
     if (isPending) {
         return <>Loading...</>;

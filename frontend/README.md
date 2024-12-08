@@ -1,7 +1,5 @@
 ```bash
-yarn install;
-```
-
-```bash
-yarn test;
+yarn install
+yarn dev
+yarn test
 ```
