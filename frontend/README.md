@@ -1,4 +1,7 @@
+```bash
+yarn install;
 ```
-npm install
-npm run dev
+
+```bash
+yarn test;
 ```

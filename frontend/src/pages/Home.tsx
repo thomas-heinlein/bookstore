@@ -1,7 +1,7 @@
 import { Container, Typography } from "@mui/material";
 import {FC} from "react";
 
-export const Home: FC = () => {
+const Home: FC = () => {
     return (
         <Container>
             <Typography variant="h3" gutterBottom>
@@ -13,3 +13,5 @@ export const Home: FC = () => {
         </Container>
     );
 };
+
+export default Home;

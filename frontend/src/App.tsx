@@ -6,7 +6,7 @@ import {SecuredPage} from "./SecuredPage.tsx";
 import {Router} from "@mui/icons-material";
 import {BrowserRouter, Route, Routes} from "react-router";
 import NavBar from "./components/NavBar.tsx";
-import {Home} from "./pages/Home.tsx";
+import Home from "./pages/Home.tsx";
 import BookTable from "./pages/BookTable.tsx";
 import BookCreation from "./pages/BookCreation.tsx";
 import Stack from '@mui/material/Stack';

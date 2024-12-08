@@ -5,7 +5,7 @@ import {DataGrid, GridColDef} from '@mui/x-data-grid';
 import {FC} from "react";
 import {Book} from "../types/Book.ts";
 
-const columns: GridColDef<Book[number]>[] = [
+const columns: GridColDef<Book>[] = [
     {
         field: 'id',
         headerName: 'ID',
