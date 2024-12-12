@@ -786,7 +786,7 @@
   resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-6.1.10.tgz#871b5a4876cfd0beac6672fe50d57e0c0a53db36"
   integrity sha512-LY5wdiLCBDY7u+Od8UmFINZFGN/5ZU90fhAslf/ZtfP+5RhuY45f679pqYIxe0y54l6Gkv9PFOc8Cs10LDTBYg==
 
-"@mui/icons-material@^6.1.9":
+"@mui/icons-material@^6.1.10":
   version "6.1.10"
   resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-6.1.10.tgz#9ed27fc750ab4811da94c1a1252253d9d1e86cc2"
   integrity sha512-G6P1BCSt6EQDcKca47KwvKjlqgOXFbp2I3oWiOlFgKYTANBH89yk7ttMQ5ysqNxSYAB+4TdM37MlPYp4+FkVrQ==
@@ -874,6 +874,19 @@
     clsx "^2.1.1"
     prop-types "^15.8.1"
     reselect "^5.1.1"
+
+"@mui/x-date-pickers@^7.23.1":
+  version "7.23.1"
+  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-7.23.1.tgz#8d85afa4c25f6f0447dceb5bc89374a80ee2981d"
+  integrity sha512-Jr4beZ7r2lvWBaFnkIAg9BgiNFcfeJy4AUe3MbG10BBSZyB++odGqhOUAIGqkP7MpUzEGlTv4NUaaD7gYTAQPg==
+  dependencies:
+    "@babel/runtime" "^7.25.7"
+    "@mui/utils" "^5.16.6 || ^6.0.0"
+    "@mui/x-internals" "7.23.0"
+    "@types/react-transition-group" "^4.4.11"
+    clsx "^2.1.1"
+    prop-types "^15.8.1"
+    react-transition-group "^4.4.5"
 
 "@mui/x-internals@7.23.0":
   version "7.23.0"
@@ -1614,6 +1627,16 @@ data-urls@^2.0.0:
     abab "^2.0.3"
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
+
+date-fns@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-4.1.0.tgz#64b3d83fff5aa80438f5b1a633c2e83b8a1c2d14"
+  integrity sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==
+
+dayjs@^1.11.13:
+  version "1.11.13"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.13.tgz#92430b0139055c3ebb60150aa13e860a4b5a366c"
+  integrity sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==
 
 debug@4, debug@^4.1.0, debug@^4.1.1:
   version "4.3.2"

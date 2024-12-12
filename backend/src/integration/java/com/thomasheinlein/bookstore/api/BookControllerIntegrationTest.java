@@ -2,7 +2,7 @@ package com.thomasheinlein.bookstore.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thomasheinlein.bookstore.api.dto.CreateBookDto;
-import com.thomasheinlein.bookstore.api.dto.UpdateBookDto;
+import com.thomasheinlein.bookstore.api.dto.EditBookDto;
 import com.thomasheinlein.bookstore.persistence.BookRepository;
 import com.thomasheinlein.bookstore.persistence.JpaBook;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
@@ -72,7 +72,7 @@ class BookControllerIntegrationTest {
                 .name("Old Book Name")
                 .build();
         JpaBook savedBook = bookRepository.save(book);
-        UpdateBookDto updateBookDto = createUpdateBookDto()
+        EditBookDto updateBookDto = createEditBookDto()
                 .toBuilder()
                 .name("New Book Name")
                 .build();
@@ -99,7 +99,7 @@ class BookControllerIntegrationTest {
 
     @Test
     void shouldReturnNotFoundWhenEditingNonExistentBook() throws Exception {
-        UpdateBookDto updateBookDto = createUpdateBookDto();
+        EditBookDto updateBookDto = createEditBookDto();
 
         mockMvc.perform(put("/api/books/999")
                         .contentType(MediaType.APPLICATION_JSON)

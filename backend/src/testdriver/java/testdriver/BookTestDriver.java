@@ -1,33 +1,36 @@
 package testdriver;
 
 import com.thomasheinlein.bookstore.api.dto.CreateBookDto;
-import com.thomasheinlein.bookstore.api.dto.UpdateBookDto;
+import com.thomasheinlein.bookstore.api.dto.EditBookDto;
 import com.thomasheinlein.bookstore.persistence.JpaBook;
 import com.thomasheinlein.bookstore.service.command.CreateBookCommand;
 import com.thomasheinlein.bookstore.service.command.EditBookCommand;
 
+import java.time.LocalDate;
+
 public class BookTestDriver {
 
     public static JpaBook createNewJpaBook() {
-        return new JpaBook(null, "ISBN", "Name");
+        return createCreateBookCommand().toJpa();
     }
+
     public static JpaBook createJpaBook() {
-        return new JpaBook(1L, "ISBN", "Name");
+        return createEditBookCommand().toJpa();
     }
 
     public static CreateBookDto createCreateBookDto() {
-        return new CreateBookDto("ISBN", "Name");
+        return new CreateBookDto("ISBN", "Name", "Author", "Genre", "Publisher", LocalDate.now(), "Description");
     }
 
-    public static UpdateBookDto createUpdateBookDto() {
-        return new UpdateBookDto("ISBN", "Name");
+    public static EditBookDto createEditBookDto() {
+        return new EditBookDto("ISBN", "Name", "Author", "Genre", "Publisher", LocalDate.now(), "Description");
     }
 
     public static CreateBookCommand createCreateBookCommand() {
-        return new CreateBookCommand("ISBN", "Name");
+        return CreateBookCommand.fromDto(createCreateBookDto());
     }
 
     public static EditBookCommand createEditBookCommand() {
-        return new EditBookCommand(1L, "ISBN", "Name");
+        return EditBookCommand.fromDto(1L, createEditBookDto());
     }
 }

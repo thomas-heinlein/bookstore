@@ -1,9 +1,9 @@
 package com.thomasheinlein.bookstore.persistence;
 
-import com.thomasheinlein.bookstore.service.command.CreateBookCommand;
-import com.thomasheinlein.bookstore.service.command.EditBookCommand;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "books")
@@ -22,19 +22,9 @@ public class JpaBook {
     private Long id;
     private String isbn;
     private String name;
-
-    public static JpaBook fromCommand(CreateBookCommand command) {
-        JpaBook book = new JpaBook();
-        book.setIsbn(command.getIsbn());
-        book.setName(command.getName());
-        return book;
-    }
-    public static JpaBook fromCommand(EditBookCommand command) {
-        JpaBook book = new JpaBook();
-        book.setId(command.getId());
-        book.setIsbn(command.getIsbn());
-        book.setName(command.getName());
-        return book;
-    }
-
+    private String author;
+    private String genre;
+    private String publisher;
+    private LocalDate publicationDate;
+    private String description;
 }

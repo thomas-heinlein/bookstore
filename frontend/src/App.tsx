@@ -11,10 +11,17 @@ import BookCreation from "./pages/BookCreation";
 import Stack from '@mui/material/Stack';
 import {ThemeProvider} from '@mui/material/styles';
 import theme from './theme';
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {enUS} from "@mui/x-date-pickers/locales";
+import {LocalizationProvider} from '@mui/x-date-pickers';
 
 function App() {
     return (
-        <>
+        <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            adapterLocale={'en'}
+            localeText={enUS.components.MuiLocalizationProvider.defaultProps.localeText}
+        >
             <ThemeProvider theme={theme}>
                 <QueryClientProvider client={queryClient}>
                     <AuthProvider userManager={userManager} onSigninCallback={onSigninCallback}>
@@ -35,7 +42,7 @@ function App() {
                     </AuthProvider>
                 </QueryClientProvider>
             </ThemeProvider>
-        </>
+        </LocalizationProvider>
     )
 }
 

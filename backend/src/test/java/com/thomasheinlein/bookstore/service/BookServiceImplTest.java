@@ -67,7 +67,7 @@ class BookServiceImplTest {
             Long id = cut.create(command);
 
             assertThat(id).isEqualTo(1L);
-            JpaBook expectedJpaBook = JpaBook.fromCommand(command);
+            JpaBook expectedJpaBook = command.toJpa();
             verify(bookRepository).save(expectedJpaBook);
         }
 
@@ -87,7 +87,7 @@ class BookServiceImplTest {
 
             cut.edit(command);
 
-            verify(bookRepository).save(JpaBook.fromCommand(command));
+            verify(bookRepository).save(command.toJpa());
         }
 
         @Test

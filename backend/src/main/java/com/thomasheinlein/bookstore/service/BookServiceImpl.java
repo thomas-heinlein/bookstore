@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Long create(CreateBookCommand command) {
-        JpaBook book = bookRepository.save(JpaBook.fromCommand(command));
+        JpaBook book = bookRepository.save(command.toJpa());
         return book.getId();
     }
 
@@ -33,7 +33,7 @@ public class BookServiceImpl implements BookService{
         if (!bookRepository.existsById(command.getId())) {
             throw new BookNotFoundException(command.getId());
         }
-        bookRepository.save(JpaBook.fromCommand(command));
+        bookRepository.save(command.toJpa());
     }
 
     @Override

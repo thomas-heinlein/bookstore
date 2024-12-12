@@ -2,7 +2,7 @@ package com.thomasheinlein.bookstore.api;
 
 import com.thomasheinlein.bookstore.api.dto.BookDto;
 import com.thomasheinlein.bookstore.api.dto.CreateBookDto;
-import com.thomasheinlein.bookstore.api.dto.UpdateBookDto;
+import com.thomasheinlein.bookstore.api.dto.EditBookDto;
 import com.thomasheinlein.bookstore.service.BookService;
 import com.thomasheinlein.bookstore.service.command.CreateBookCommand;
 import com.thomasheinlein.bookstore.service.command.EditBookCommand;
@@ -32,14 +32,15 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<Long> createBook(@RequestBody CreateBookDto dto) {
-        long id = bookService.create(new CreateBookCommand(dto.getIsbn(), dto.getName()));
+        CreateBookCommand command = CreateBookCommand.fromDto(dto);
+        long id = bookService.create(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Void> editBook(@PathVariable("id") Long id, @RequestBody UpdateBookDto dto) {
+    public ResponseEntity<Void> editBook(@PathVariable("id") Long id, @RequestBody EditBookDto dto) {
         try {
-            bookService.edit(new EditBookCommand(id, dto.getIsbn(), dto.getName()));
+            bookService.edit(EditBookCommand.fromDto(id, dto));
             return ResponseEntity.noContent().build();
         } catch (BookNotFoundException e) {
             return ResponseEntity.notFound().build();

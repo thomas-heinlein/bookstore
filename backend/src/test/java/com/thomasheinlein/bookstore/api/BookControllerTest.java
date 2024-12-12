@@ -2,7 +2,7 @@ package com.thomasheinlein.bookstore.api;
 
 import com.thomasheinlein.bookstore.api.dto.BookDto;
 import com.thomasheinlein.bookstore.api.dto.CreateBookDto;
-import com.thomasheinlein.bookstore.api.dto.UpdateBookDto;
+import com.thomasheinlein.bookstore.api.dto.EditBookDto;
 import com.thomasheinlein.bookstore.persistence.JpaBook;
 import com.thomasheinlein.bookstore.service.BookService;
 import com.thomasheinlein.bookstore.service.command.CreateBookCommand;
@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import testdriver.BookTestDriver;
 
 import java.util.List;
 
@@ -61,19 +62,19 @@ class BookControllerTest {
         @Test
         void editBook() {
             Long bookId = 1L;
-            UpdateBookDto updateBookDto = createUpdateBookDto();
+            EditBookDto updateBookDto = createEditBookDto();
             doNothing().when(bookService).edit(any(EditBookCommand.class));
 
             ResponseEntity<Void> response = cut.editBook(bookId, updateBookDto);
 
-            verify(bookService, times(1)).edit(new EditBookCommand(bookId, updateBookDto.getIsbn(), updateBookDto.getName()));
+            verify(bookService, times(1)).edit(BookTestDriver.createEditBookCommand());
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
         }
 
         @Test
         void returnNotFoundIfBookNotFound() {
             Long bookId = 999L;
-            UpdateBookDto updateBookDto = createUpdateBookDto();
+            EditBookDto updateBookDto = createEditBookDto();
             doThrow(new BookNotFoundException(bookId)).when(bookService).edit(any(EditBookCommand.class));
 
             ResponseEntity<Void> response = cut.editBook(bookId, updateBookDto);
