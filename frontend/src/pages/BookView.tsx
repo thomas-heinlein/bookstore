@@ -6,6 +6,9 @@ import { Box } from "@mui/system";
 import BookstoreQuery from "../components/BookstoreQuery";
 import BookstoreTitle from "../components/BookstoreTitle";
 import dayjs from "dayjs";
+import { useLocation } from "react-router-dom";
+import Alert from "@mui/material/Alert";
+import CheckIcon from "@mui/icons-material/Check";
 
 interface ViewElementProps {
   field: string;
@@ -27,6 +30,8 @@ const ViewElement: FC<ViewElementProps> = ({ field, fieldValue }) => {
 
 const BookView: FC = () => {
   const { id } = useParams();
+  const location = useLocation();
+  const message = location.state?.message;
 
   return (
     <BookstoreQuery
@@ -35,8 +40,12 @@ const BookView: FC = () => {
     >
       {({ data }) => (
         <Stack spacing={3}>
+          {message && (
+            <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+              {message}
+            </Alert>
+          )}
           <BookstoreTitle>{data.name}</BookstoreTitle>
-
           <Box
             display="flex"
             flexDirection={{ xs: "column", sm: "row" }}
@@ -58,9 +67,7 @@ const BookView: FC = () => {
               />
             </Stack>
           </Box>
-
           <Divider />
-
           <Box display="flex" justifyContent="flex-end">
             <Typography variant="body2" color="textSecondary">
               <strong>Book ID:</strong> {data.id}

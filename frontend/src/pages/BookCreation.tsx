@@ -16,7 +16,9 @@ const BookCreation: FC = () => {
       <BookDataForm
         onSuccess={async (bookFormData) => {
           const id = await createEntity<BookFormData>("books", bookFormData);
-          navigate(`/books/${id}`);
+          navigate(`/books/details/${id}`, {
+            state: { message: "Book successfully registered!" },
+          });
         }}
         buttonIcon={<AddIcon />}
         buttonText={"Register"}

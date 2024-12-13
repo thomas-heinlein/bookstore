@@ -34,7 +34,9 @@ const BookEdit: FC = () => {
                 queryKey: ["books", id],
                 exact: true,
               });
-              navigate(`/books/details/${id}`);
+              navigate(`/books/details/${id}`, {
+                state: { message: "Book successfully edited!" },
+              });
             }}
             buttonIcon={<ModeEditIcon />}
             buttonText={"Edit"}
