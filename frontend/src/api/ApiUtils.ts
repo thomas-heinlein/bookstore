@@ -37,6 +37,27 @@ export const createEntity = async <T>(
   return await response.json();
 };
 
+export const editEntity = async <T>(
+  path: string,
+  id: number,
+  objectToCreate: T,
+): Promise<void> => {
+  const auth = getAuth();
+
+  const response = await fetch(`http://localhost:8081/api/${path}/${id}`, {
+    method: "PUT",
+    headers: {
+      authorization: `Bearer ${auth.user?.id_token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(objectToCreate),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Unexpected response status: ${response.status}`);
+  }
+};
+
 export const deleteEntity = async (path: string): Promise<void> => {
   const auth = getAuth();
 

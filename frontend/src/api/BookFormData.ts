@@ -1,4 +1,4 @@
-export interface CreateBook {
+export interface BookFormData {
   name: string;
   isbn: string;
   author: string;

@@ -15,6 +15,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { enUS } from "@mui/x-date-pickers/locales";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import BookView from "./pages/BookView";
+import BookEdit from "./pages/BookEdit";
 
 function App() {
   return (
@@ -39,7 +40,8 @@ function App() {
                     <Routes>
                       <Route path="/" element={<Home />} />
                       <Route path="/books" element={<BookTable />} />
-                      <Route path="/books/:id" element={<BookView />} />
+                      <Route path="/books/details/:id" element={<BookView />} />
+                      <Route path="/books/:id" element={<BookEdit />} />
                       <Route
                         path="/books/register"
                         element={<BookCreation />}

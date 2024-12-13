@@ -31,7 +31,9 @@ const columnVisibilityModel = {
 const BookTable: FC = () => {
   const navigate = useNavigate();
 
-  const handleEditClick = (id: GridRowId) => () => {};
+  const handleEditClick = (id: GridRowId) => () => {
+    navigate(`/books/${id}`);
+  };
 
   const handleDeleteClick = (id: GridRowId) => () => {
     deleteEntity(`books/${id}`);
@@ -39,7 +41,7 @@ const BookTable: FC = () => {
   };
 
   const handleViewClick = (id: GridRowId) => () => {
-    navigate(`/books/${id}`);
+    navigate(`/books/details/${id}`);
   };
 
   const columns: GridColDef<BookListView>[] = [

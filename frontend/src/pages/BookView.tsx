@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { query } from "../api/ApiUtils";
 import { useParams } from "react-router";
 import { Divider, Stack, Typography } from "@mui/material";
@@ -30,7 +30,7 @@ const BookView: FC = () => {
 
   return (
     <BookstoreQuery
-      queryKey={["books", "details"]}
+      queryKey={["books", "details", id ?? ""]}
       queryFn={() => query(`books/${id}`)}
     >
       {({ data }) => (
