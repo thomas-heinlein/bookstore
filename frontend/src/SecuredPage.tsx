@@ -2,10 +2,6 @@ import { FC, ReactNode, useEffect, useState } from "react";
 import { hasAuthParams, useAuth } from "react-oidc-context";
 import { setAuth } from "./AuthProvider";
 
-interface SecuredPageProps {
-  children: ReactNode;
-}
-
 export const SecuredPage: FC = (props) => {
   const { children } = props;
 

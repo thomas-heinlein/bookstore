@@ -1,9 +1,29 @@
-import { FC } from "react";
-import BookstoreQuery from "./BookstoreQuery";
+import { FC, ReactNode } from "react";
 import { query } from "../api/ApiUtils";
 import { useParams } from "react-router";
-import { Card, CardContent, Stack, Typography, Divider } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import BookstoreQuery from "../components/BookstoreQuery";
+import BookstoreTitle from "../components/BookstoreTitle";
+import dayjs from "dayjs";
+
+interface ViewElementProps {
+  field: string;
+  fieldValue: string;
+}
+
+const ViewElement: FC<ViewElementProps> = ({ field, fieldValue }) => {
+  return (
+    <Typography
+      variant="subtitle1"
+      color="textSecondary"
+      gutterBottom
+      align="left"
+    >
+      <strong>{field}:</strong> {fieldValue}
+    </Typography>
+  );
+};
 
 const BookView: FC = () => {
   const { id } = useParams();
@@ -14,53 +34,39 @@ const BookView: FC = () => {
       queryFn={() => query(`books/${id}`)}
     >
       {({ data }) => (
-        <Card>
-          <CardContent>
-            <Typography variant="h5" gutterBottom>
-              {data.name}
+        <Stack spacing={3}>
+          <BookstoreTitle>{data.name}</BookstoreTitle>
+
+          <Box
+            display="flex"
+            flexDirection={{ xs: "column", sm: "row" }}
+            justifyContent="space-between"
+            gap={3}
+          >
+            <Stack spacing={1.5}>
+              <ViewElement field={"ISBN"} fieldValue={data.isbn} />
+              <ViewElement field={"Author"} fieldValue={data.author} />
+              <ViewElement field={"Genre"} fieldValue={data.genre} />
+              <ViewElement field={"Publisher"} fieldValue={data.publisher} />
+              <ViewElement
+                field={"Publication Date"}
+                fieldValue={dayjs(data.publicationDate).format("MM/DD/YYYY")}
+              />
+              <ViewElement
+                field={"Description"}
+                fieldValue={data.description}
+              />
+            </Stack>
+          </Box>
+
+          <Divider />
+
+          <Box display="flex" justifyContent="flex-end">
+            <Typography variant="body2" color="textSecondary">
+              <strong>Book ID:</strong> {data.id}
             </Typography>
-
-            <Box
-              display="flex"
-              flexDirection={{ xs: "column", sm: "row" }}
-              justifyContent="space-between"
-              gap={3}
-            >
-              <Stack spacing={1.5}>
-                <Typography variant="subtitle1" color="textSecondary">
-                  <strong>ISBN:</strong> {data.isbn}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                  <strong>Author:</strong> {data.author}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                  <strong>Genre:</strong> {data.genre}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                  <strong>Publisher:</strong> {data.publisher}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                  <strong>Publication Date:</strong> {data.publicationDate}
-                </Typography>
-              </Stack>
-
-              <Box flex={1}>
-                <Typography variant="subtitle1" color="textSecondary">
-                  <strong>Description:</strong>
-                </Typography>
-                <Typography variant="body2">{data.description}</Typography>
-              </Box>
-            </Box>
-
-            <Divider sx={{ my: 2 }} />
-
-            <Box display="flex" justifyContent="flex-end">
-              <Typography variant="body2" color="textSecondary">
-                <strong>Book ID:</strong> {data.id}
-              </Typography>
-            </Box>
-          </CardContent>
-        </Card>
+          </Box>
+        </Stack>
       )}
     </BookstoreQuery>
   );

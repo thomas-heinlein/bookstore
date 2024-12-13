@@ -21,7 +21,7 @@ const BookstoreQuery: FC<BookstoreQueryProps> = ({
   });
 
   if (error) {
-    return <Typography>error.message</Typography>;
+    return <Typography>{error.message}</Typography>;
   }
   if (isPending) {
     return (

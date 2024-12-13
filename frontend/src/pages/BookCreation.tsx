@@ -5,19 +5,21 @@ import {
   TextareaAutosizeElement,
   TextFieldElement,
 } from "react-hook-form-mui";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { useAuth } from "react-oidc-context";
+import { Box, Button } from "@mui/material";
 import { createEntity } from "../api/ApiUtils";
 import { CreateBook } from "../api/CreateBook";
 import Grid from "@mui/material/Grid2";
 import "dayjs/locale/en";
 import { DatePickerElement } from "react-hook-form-mui/date-pickers";
 import AddIcon from "@mui/icons-material/Add";
+import Stack from "@mui/material/Stack";
+import BookstoreTitle from "../components/BookstoreTitle";
+import { useNavigate } from "react-router-dom";
 
 const BookCreation: FC = () => {
-  const auth = useAuth();
+  const navigate = useNavigate();
 
-  const onSuccess = (data: FieldValues) => {
+  const onSuccess = async (data: FieldValues) => {
     const newBook: CreateBook = {
       name: data.name,
       isbn: data.isbn,
@@ -27,20 +29,20 @@ const BookCreation: FC = () => {
       publicationDate: data.publicationDate,
       description: data.description,
     };
-    createEntity<CreateBook>("books", newBook);
+    const id = await createEntity<CreateBook>("books", newBook);
+    navigate(`/books/${id}`);
   };
 
   return (
-    <>
-      <Typography variant="h4" gutterBottom>
-        Register a new Book
-      </Typography>
+    <Stack spacing={3}>
+      <BookstoreTitle>Register a new Book</BookstoreTitle>
       <Box>
         <FormContainer onSuccess={onSuccess}>
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 6 }}>
               <TextFieldElement
                 fullWidth
+                required
                 name="name"
                 label="Name"
                 autoComplete="off"
@@ -49,6 +51,7 @@ const BookCreation: FC = () => {
             <Grid size={{ xs: 12, md: 6 }}>
               <TextFieldElement
                 fullWidth
+                required
                 name="isbn"
                 label="ISBN"
                 autoComplete="off"
@@ -57,6 +60,7 @@ const BookCreation: FC = () => {
             <Grid size={{ xs: 12, md: 6 }}>
               <TextFieldElement
                 fullWidth
+                required
                 name="author"
                 label="Author"
                 autoComplete="off"
@@ -65,6 +69,7 @@ const BookCreation: FC = () => {
             <Grid size={{ xs: 12, md: 6 }}>
               <TextFieldElement
                 fullWidth
+                required
                 name="genre"
                 label="Genre"
                 autoComplete="off"
@@ -73,6 +78,7 @@ const BookCreation: FC = () => {
             <Grid size={{ xs: 12, md: 6 }}>
               <TextFieldElement
                 fullWidth
+                required
                 name="publisher"
                 label="Publisher"
                 autoComplete="off"
@@ -80,6 +86,7 @@ const BookCreation: FC = () => {
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <DatePickerElement
+                required
                 sx={{ width: "100% " }}
                 name="publicationDate"
                 label="Publication Date"
@@ -87,6 +94,7 @@ const BookCreation: FC = () => {
             </Grid>
             <Grid size={{ xs: 12, md: 12 }}>
               <TextareaAutosizeElement
+                required
                 fullWidth
                 minRows={3}
                 name="description"
@@ -109,7 +117,7 @@ const BookCreation: FC = () => {
           </Grid>
         </FormContainer>
       </Box>
-    </>
+    </Stack>
   );
 };
 

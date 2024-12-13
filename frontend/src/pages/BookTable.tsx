@@ -4,14 +4,17 @@ import {
   GridActionsCellItem,
   GridColDef,
   GridRowId,
+  GridToolbar,
 } from "@mui/x-data-grid";
 import { FC } from "react";
 import { BookListView } from "../types/BookListView";
-import BookstoreQuery from "./BookstoreQuery";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
+import Stack from "@mui/material/Stack";
+import BookstoreQuery from "../components/BookstoreQuery";
+import BookstoreTitle from "../components/BookstoreTitle";
 
 const initialState = {
   pagination: {
@@ -101,17 +104,40 @@ const BookTable: FC = () => {
   ];
 
   return (
-    <BookstoreQuery queryKey={["books"]} queryFn={() => query("books")}>
-      {({ data }) => (
-        <DataGrid
-          columns={columns}
-          rows={data}
-          initialState={initialState}
-          disableRowSelectionOnClick
-          columnVisibilityModel={columnVisibilityModel}
-        />
-      )}
-    </BookstoreQuery>
+    <Stack spacing={3}>
+      <BookstoreTitle>Books</BookstoreTitle>
+      <BookstoreQuery queryKey={["books"]} queryFn={() => query("books")}>
+        {({ data }) => (
+          <DataGrid
+            columns={columns}
+            rows={data}
+            initialState={initialState}
+            columnVisibilityModel={columnVisibilityModel}
+            disableRowSelectionOnClick
+            disableColumnFilter
+            disableColumnSelector
+            disableDensitySelector
+            slots={{ toolbar: GridToolbar }}
+            sx={{
+              border: "none",
+              "& .MuiDataGrid-columnSeparator": {
+                display: "none",
+              },
+              "& .MuiDataGrid-cell": {
+                border: "none",
+              },
+            }}
+            slotProps={{
+              toolbar: {
+                showQuickFilter: true,
+                printOptions: { disableToolbarButton: true },
+                csvOptions: { disableToolbarButton: true },
+              },
+            }}
+          />
+        )}
+      </BookstoreQuery>
+    </Stack>
   );
 };
 

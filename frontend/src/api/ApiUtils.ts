@@ -34,7 +34,7 @@ export const createEntity = async <T>(
     throw new Error(`Unexpected response status: ${response.status}`);
   }
 
-  return Number(response);
+  return await response.json();
 };
 
 export const deleteEntity = async (path: string): Promise<void> => {
