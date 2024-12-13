@@ -5,7 +5,7 @@ import {
   GridColDef,
   GridRowId,
 } from "@mui/x-data-grid";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { BookListView } from "../types/BookListView";
 import BookstoreQuery from "./BookstoreQuery";
 import EditIcon from "@mui/icons-material/Edit";
@@ -19,6 +19,10 @@ const initialState = {
       pageSize: 5,
     },
   },
+};
+
+const columnVisibilityModel = {
+  id: false,
 };
 
 const BookTable: FC = () => {
@@ -104,6 +108,7 @@ const BookTable: FC = () => {
           rows={data}
           initialState={initialState}
           disableRowSelectionOnClick
+          columnVisibilityModel={columnVisibilityModel}
         />
       )}
     </BookstoreQuery>
