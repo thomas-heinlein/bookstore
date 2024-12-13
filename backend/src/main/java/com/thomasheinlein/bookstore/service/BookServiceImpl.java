@@ -23,6 +23,11 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
+    public JpaBook getById(Long id) {
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+    }
+
+    @Override
     public Long create(CreateBookCommand command) {
         JpaBook book = bookRepository.save(command.toJpa());
         return book.getId();

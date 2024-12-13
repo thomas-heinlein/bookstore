@@ -7,7 +7,7 @@ import {
 } from "react-hook-form-mui";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useAuth } from "react-oidc-context";
-import { create } from "../api/ApiUtils";
+import { createEntity } from "../api/ApiUtils";
 import { CreateBook } from "../api/CreateBook";
 import Grid from "@mui/material/Grid2";
 import "dayjs/locale/en";
@@ -27,7 +27,7 @@ const BookCreation: FC = () => {
       publicationDate: data.publicationDate,
       description: data.description,
     };
-    create<CreateBook>("books", newBook);
+    createEntity<CreateBook>("books", newBook);
   };
 
   return (
@@ -39,19 +39,44 @@ const BookCreation: FC = () => {
         <FormContainer onSuccess={onSuccess}>
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 6 }}>
-              <TextFieldElement fullWidth name="name" label="Name" />
+              <TextFieldElement
+                fullWidth
+                name="name"
+                label="Name"
+                autoComplete="off"
+              />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <TextFieldElement fullWidth name="isbn" label="ISBN" />
+              <TextFieldElement
+                fullWidth
+                name="isbn"
+                label="ISBN"
+                autoComplete="off"
+              />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <TextFieldElement fullWidth name="author" label="Author" />
+              <TextFieldElement
+                fullWidth
+                name="author"
+                label="Author"
+                autoComplete="off"
+              />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <TextFieldElement fullWidth name="genre" label="Genre" />
+              <TextFieldElement
+                fullWidth
+                name="genre"
+                label="Genre"
+                autoComplete="off"
+              />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <TextFieldElement fullWidth name="publisher" label="Publisher" />
+              <TextFieldElement
+                fullWidth
+                name="publisher"
+                label="Publisher"
+                autoComplete="off"
+              />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <DatePickerElement
@@ -66,6 +91,7 @@ const BookCreation: FC = () => {
                 minRows={3}
                 name="description"
                 label="Description"
+                autoComplete="off"
               />
             </Grid>
             <Grid size={{ md: 10 }} />

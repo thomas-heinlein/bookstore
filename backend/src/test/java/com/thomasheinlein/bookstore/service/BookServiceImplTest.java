@@ -11,8 +11,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import testdriver.BookTestDriver;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -74,6 +76,29 @@ class BookServiceImplTest {
         @Test
         void shouldThrowExceptionWhenCreateCommandIsNull() {
             assertThrows(NullPointerException.class, () -> cut.create(null));
+        }
+    }
+
+    @Nested
+    class GetById {
+
+        @Test
+        void returnBookById() {
+            JpaBook jpaBook = BookTestDriver.createJpaBook();
+            when(bookRepository.findById(1L)).thenReturn(Optional.of(jpaBook));
+
+            JpaBook result = cut.getById(1L);
+
+            assertThat(result).isEqualTo(jpaBook);
+        }
+
+        @Test
+        void throwExceptionWhenEditingNonExistentBook() {
+            when(bookRepository.findById(1L)).thenReturn(Optional.empty());
+
+            assertThrows(BookNotFoundException.class, () -> cut.getById(1L));
+
+            verify(bookRepository, never()).save(any());
         }
     }
 

@@ -51,6 +51,17 @@ class BookControllerIntegrationTest {
     }
 
     @Test
+    void shouldGetBookDetails() throws Exception {
+        JpaBook book = createNewJpaBook();
+        bookRepository.save(book);
+
+        mockMvc.perform(get("/api/books/" + book.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(book.getId()))
+                .andExpect(jsonPath("$.name").value(book.getName()));
+    }
+
+    @Test
     void shouldCreateBook() throws Exception {
         CreateBookDto createBookDto = createCreateBookDto();
 

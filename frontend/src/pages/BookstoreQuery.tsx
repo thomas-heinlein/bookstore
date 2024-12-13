@@ -1,5 +1,7 @@
 import { FC, ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
+import CircularProgress from "@mui/material/CircularProgress";
+import { Box, Typography } from "@mui/material";
 
 interface BookstoreQueryProps {
   children: (props: { data: any }) => ReactNode;
@@ -19,10 +21,20 @@ const BookstoreQuery: FC<BookstoreQueryProps> = ({
   });
 
   if (error) {
-    return <>error.message</>;
+    return <Typography>error.message</Typography>;
   }
   if (isPending) {
-    return <>Loading...</>;
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return <>{children({ data })}</>;

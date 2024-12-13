@@ -1,6 +1,7 @@
 package com.thomasheinlein.bookstore.api;
 
-import com.thomasheinlein.bookstore.api.dto.BookDto;
+import com.thomasheinlein.bookstore.api.dto.BookDetailDto;
+import com.thomasheinlein.bookstore.api.dto.BookListDto;
 import com.thomasheinlein.bookstore.api.dto.CreateBookDto;
 import com.thomasheinlein.bookstore.api.dto.EditBookDto;
 import com.thomasheinlein.bookstore.persistence.JpaBook;
@@ -39,10 +40,34 @@ class BookControllerTest {
         JpaBook jpaBook2 = createJpaBook().toBuilder().id(2L).build();
         when(bookService.getAll()).thenReturn(List.of(jpaBook1, jpaBook2));
 
-        ResponseEntity<List<BookDto>> response = cut.getBooks();
+        ResponseEntity<List<BookListDto>> response = cut.getBooks();
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).containsExactly(BookDto.fromBook(jpaBook1), BookDto.fromBook(jpaBook2));
+        assertThat(response.getBody()).containsExactly(BookListDto.fromBook(jpaBook1), BookListDto.fromBook(jpaBook2));
+    }
+
+    @Nested
+    class GetBookDetails {
+        @Test
+        void getBookDetails() {
+            JpaBook jpaBook = createJpaBook().toBuilder().id(1L).build();
+            when(bookService.getById(1L)).thenReturn(jpaBook);
+
+            ResponseEntity<BookDetailDto> response = cut.getBookDetails(1L);
+
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(response.getBody()).isEqualTo(BookDetailDto.fromBook(jpaBook));
+        }
+
+        @Test
+        void returnNotFoundIfBookNotFound() {
+            Long bookId = 999L;
+            doThrow(new BookNotFoundException(bookId)).when(bookService).getById(bookId);
+
+            ResponseEntity<BookDetailDto> response = cut.getBookDetails(bookId);
+
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Test

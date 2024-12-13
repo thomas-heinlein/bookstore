@@ -1,6 +1,7 @@
 package com.thomasheinlein.bookstore.api;
 
-import com.thomasheinlein.bookstore.api.dto.BookDto;
+import com.thomasheinlein.bookstore.api.dto.BookDetailDto;
+import com.thomasheinlein.bookstore.api.dto.BookListDto;
 import com.thomasheinlein.bookstore.api.dto.CreateBookDto;
 import com.thomasheinlein.bookstore.api.dto.EditBookDto;
 import com.thomasheinlein.bookstore.service.BookService;
@@ -22,12 +23,22 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    public ResponseEntity<List<BookDto>> getBooks() {
-        List<BookDto> books = bookService.getAll().stream()
-                .map(BookDto::fromBook)
+    public ResponseEntity<List<BookListDto>> getBooks() {
+        List<BookListDto> books = bookService.getAll().stream()
+                .map(BookListDto::fromBook)
                 .toList();
 
         return ResponseEntity.ok(books);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BookDetailDto> getBookDetails(@PathVariable("id") Long id) {
+        try {
+            BookDetailDto bookDetails = BookDetailDto.fromBook(bookService.getById(id));
+            return ResponseEntity.ok(bookDetails);
+        } catch (BookNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping

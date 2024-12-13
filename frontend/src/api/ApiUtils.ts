@@ -15,7 +15,7 @@ export const query = async (path: string) => {
   return await response.json();
 };
 
-export const create = async <T>(
+export const createEntity = async <T>(
   path: string,
   objectToCreate: T,
 ): Promise<number> => {
@@ -35,4 +35,20 @@ export const create = async <T>(
   }
 
   return Number(response);
+};
+
+export const deleteEntity = async (path: string): Promise<void> => {
+  const auth = getAuth();
+
+  const response = await fetch(`http://localhost:8081/api/${path}`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${auth.user?.id_token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Unexpected response status: ${response.status}`);
+  }
 };

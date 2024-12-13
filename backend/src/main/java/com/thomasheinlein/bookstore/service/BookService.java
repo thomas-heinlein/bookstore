@@ -9,7 +9,10 @@ import java.util.List;
 public interface BookService {
     List<JpaBook> getAll();
 
+    JpaBook getById(Long id);
+
     Long create(CreateBookCommand command);
+
     void edit(EditBookCommand command);
 
     void delete(Long id);

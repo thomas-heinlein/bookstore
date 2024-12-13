@@ -1,7 +1,6 @@
-export interface Book {
+export interface BookListView {
   id: number;
   name: string;
-  isbn: string;
   author: string;
   genre: string;
 }
