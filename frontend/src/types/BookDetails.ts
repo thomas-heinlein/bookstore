@@ -1,4 +1,5 @@
-export interface CreateBook {
+export interface BookDetails {
+  id: number;
   name: string;
   isbn: string;
   author: string;

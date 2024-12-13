@@ -1,49 +1,49 @@
-import {useAuth} from 'react-oidc-context';
-import {useQuery} from '@tanstack/react-query';
-import {query} from "../api/ApiUtils";
-import {DataGrid, GridColDef} from '@mui/x-data-grid';
-import {FC} from "react";
-import {Book} from "../types/Book";
+import { query } from "../api/ApiUtils";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { FC } from "react";
+import { Book } from "../types/Book";
+import BookstoreQuery from "./BookstoreQuery";
 
 const columns: GridColDef<Book>[] = [
-    {
-        field: 'id',
-        headerName: 'ID',
-        type: 'number'
-    },
-    {
-        field: 'name',
-        headerName: 'Name'
-    },
-    {
-        field: 'isbn',
-        headerName: 'ISBN'
-    }
+  {
+    field: "id",
+    headerName: "ID",
+    type: "number",
+    width: 90,
+  },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 150,
+  },
+  {
+    field: "isbn",
+    headerName: "ISBN",
+    width: 150,
+  },
 ];
+
+const initialState = {
+  pagination: {
+    paginationModel: {
+      pageSize: 5,
+    },
+  },
+};
+
 const BookTable: FC = () => {
-
-    const auth = useAuth();
-
-    const {isPending, error, data} = useQuery({
-        queryKey: ['books'],
-        queryFn: () => query("books", auth),
-        retry: true,
-    });
-
-    if (error) {
-        return <>error.message</>;
-    }
-    if (isPending) {
-        return <>Loading...</>;
-    }
-
-    return (
+  return (
+    <BookstoreQuery queryKey={["books"]} queryFn={() => query("books")}>
+      {({ data }) => (
         <DataGrid
-            columns={columns}
-            rows={data}
-            disableRowSelectionOnClick
+          columns={columns}
+          rows={data}
+          initialState={initialState}
+          disableRowSelectionOnClick
         />
-    );
-}
+      )}
+    </BookstoreQuery>
+  );
+};
 
 export default BookTable;
