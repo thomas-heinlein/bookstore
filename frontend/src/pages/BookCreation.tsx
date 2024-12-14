@@ -21,7 +21,7 @@ const BookCreation: FC = () => {
           });
         }}
         buttonIcon={<AddIcon />}
-        buttonText={"Register"}
+        buttonText={"Save"}
       />
     </Stack>
   );

@@ -39,7 +39,7 @@ const BookEdit: FC = () => {
               });
             }}
             buttonIcon={<ModeEditIcon />}
-            buttonText={"Edit"}
+            buttonText={"Save"}
             defaultValues={data}
           />
         </Stack>
