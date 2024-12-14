@@ -26,7 +26,7 @@ const BookEdit: FC = () => {
     >
       {({ data }) => (
         <Stack spacing={3}>
-          <BookstoreTitle>Register a new Book</BookstoreTitle>
+          <BookstoreTitle>Edit book entry</BookstoreTitle>
           <BookDataForm
             onSuccess={async (bookFormData) => {
               await editEntity<BookFormData>("books", Number(id), bookFormData);
