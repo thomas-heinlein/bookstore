@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import BookstoreQuery from "../components/BookstoreQuery";
 import BookstoreTitle from "../components/BookstoreTitle";
+import { useConfirm } from "material-ui-confirm";
 
 const initialState = {
   pagination: {
@@ -30,14 +31,21 @@ const columnVisibilityModel = {
 
 const BookTable: FC = () => {
   const navigate = useNavigate();
+  const confirm = useConfirm();
 
   const handleEditClick = (id: GridRowId) => () => {
     navigate(`/books/${id}`);
   };
 
   const handleDeleteClick = (id: GridRowId) => () => {
-    deleteEntity(`books/${id}`);
-    window.location.reload();
+    confirm({
+      title: "Delete book entry",
+      description:
+        "Are you sure you want to delete this entry? This cannot be undone.",
+    }).then(() => {
+      deleteEntity(`books/${id}`);
+      window.location.reload();
+    });
   };
 
   const handleViewClick = (id: GridRowId) => () => {

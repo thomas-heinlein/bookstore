@@ -16,6 +16,7 @@ import { enUS } from "@mui/x-date-pickers/locales";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import BookView from "./pages/BookView";
 import BookEdit from "./pages/BookEdit";
+import { ConfirmProvider } from "material-ui-confirm";
 
 function App() {
   return (
@@ -33,23 +34,28 @@ function App() {
             onSigninCallback={onSigninCallback}
           >
             <SecuredPage>
-              <BrowserRouter>
-                <Stack spacing={5}>
-                  <NavBar />
-                  <main className="main-content">
-                    <Routes>
-                      <Route path="/" element={<Home />} />
-                      <Route path="/books" element={<BookTable />} />
-                      <Route path="/books/details/:id" element={<BookView />} />
-                      <Route path="/books/:id" element={<BookEdit />} />
-                      <Route
-                        path="/books/register"
-                        element={<BookCreation />}
-                      />
-                    </Routes>
-                  </main>
-                </Stack>
-              </BrowserRouter>
+              <ConfirmProvider>
+                <BrowserRouter>
+                  <Stack spacing={5}>
+                    <NavBar />
+                    <main className="main-content">
+                      <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/books" element={<BookTable />} />
+                        <Route
+                          path="/books/details/:id"
+                          element={<BookView />}
+                        />
+                        <Route path="/books/:id" element={<BookEdit />} />
+                        <Route
+                          path="/books/register"
+                          element={<BookCreation />}
+                        />
+                      </Routes>
+                    </main>
+                  </Stack>
+                </BrowserRouter>
+              </ConfirmProvider>
             </SecuredPage>
           </AuthProvider>
         </QueryClientProvider>
