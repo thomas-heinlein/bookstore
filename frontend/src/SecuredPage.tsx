@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { hasAuthParams, useAuth } from "react-oidc-context";
 import { setAuth } from "./AuthProvider";
 

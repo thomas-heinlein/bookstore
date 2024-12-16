@@ -1,15 +1,32 @@
 version: "3.9"
 
 services:
-#  backend:
-#    build:
-#      context: ./backend
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8081:8080"
-#      - "5005:5005"
-#    depends_on:
-#      - postgres
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    networks:
+      - bookstore_network
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+    networks:
+      - bookstore_network
 
   postgres:
     image: docker.io/bitnami/postgresql:17
@@ -22,6 +39,8 @@ services:
     volumes:
       - ./init-postgres.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - bookstore_network
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.0
@@ -44,6 +63,12 @@ services:
       - ./realm-config.json:/tmp/realm-config.json
     depends_on:
       - postgres
+    networks:
+      - bookstore_network
 
 volumes:
   postgres_data:
+
+networks:
+  bookstore_network:
+    driver: bridge

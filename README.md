@@ -10,26 +10,10 @@ Sample application for a bookstore. Work in progress.
 
 ## How to run
 
-### Database and Keycloak
-
 ```
 docker-compose up --build
 ./initialize-kc.sh
 ```
-
-### Backend
-
-```
-./gradlew :backend:boorRun
-```
-
-### Frontend
-```
-cd frontend
-yarn install
-yarn dev
-```
-
 
 ## Test
 
