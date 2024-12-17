@@ -44,7 +44,7 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.0
-    command: start-dev
+    command: start-dev --import-realm
     environment:
       KC_HOSTNAME_STRICT_BACKCHANNEL: false
       KC_HTTP_ENABLED: true
@@ -56,11 +56,12 @@ services:
       KC_DB_URL: jdbc:postgresql://postgres/kc
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: postgres
+      KEYCLOAK_EXTRA_ARGS: --import-realm
     ports:
       - 8080:8080
     restart: always
     volumes:
-      - ./realm-config.json:/tmp/realm-config.json
+      - ./realm-config:/opt/bitnami/keycloak/data/import
     depends_on:
       - postgres
     networks:
