@@ -5,7 +5,7 @@ Sample application for a bookstore. The main purpose of this project is to show 
 ## Overview
 
 * Backend: Java, Spring Boot, Gradle, PostgreSQL, Flyway
-* Frontend: React, Vite, React Hook Form, React Router
+* Frontend: React, MUI, Vite, React Hook Form, React Router, Jest
 * Keycloak for authentication
 
 ## Screenshots
